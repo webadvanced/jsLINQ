@@ -1,9 +1,19 @@
 (function( a, o ) {
-    a.prototype.find = a.prototype.where = function( predicate ) {
+    a.prototype.where = function( predicate ) {
+        var items = this, i = 0, l = items.length, arr = [];
+        if(!predicate) return items;
+        for(i; i < l; i++) {
+            var item = items[i];
+            if(predicate(item) === true) arr.push( item );
+        }
+        return arr;
+    };
+
+    a.prototype.select = function( func ) {
         var items = this, i = 0, l = items.length, arr = [];
         for(i; i < l; i++) {
             var item = items[i];
-            if(predicate(item) === true) arr.push(item);
+            arr.push( func( item ) );
         }
         return arr;
     };
@@ -23,7 +33,7 @@
         if( !predicate ) {
             return items[0];
         }
-        return items.find(predicate)[0];
+        return items.where(predicate)[0];
     };
     
     a.prototype.count = function( predicate ) {
@@ -31,7 +41,7 @@
         if( !predicate ) { 
             return this.length;
         }
-        return items.find(predicate).length;
+        return items.where(predicate).length;
     };
 
     a.prototype.any = function( predicate ) {
@@ -39,7 +49,7 @@
         if( !predicate ) {
             return this.length > 0;
         }
-        return ( items.length <= 0 ) ? false : items.find(predicate).length > 0;
+        return ( items.length <= 0 ) ? false : items.where(predicate).length > 0;
     };
 
     a.prototype.toHash = a.prototype.toDictionary = function( key ) {

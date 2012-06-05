@@ -19,7 +19,7 @@ var arr = [
     {name: 'Sarah', age: 22}
 ];
 
-var people = arr.find(function(x) {
+var people = arr.select(function(x) {
     return x.age > 21;
 });
 
@@ -30,7 +30,7 @@ var reza = arr.first(function(x) {
 });
 
 //first person over 21
-var person = arr.find(function(x) {
+var person = arr.where(function(x) {
     return x.age > 21;
 }).first();
 

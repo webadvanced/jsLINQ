@@ -91,8 +91,23 @@ describe( 'With jsLINQ', function() {
             }); 
 
         });
+    });
 
-        
+    describe( 'When using where()', function() {
+        it( 'should return all if no predicate is passed', function() {
+            expect( nums.where().count() ).toBe( 10 );
+        });
+
+        it( 'should return the second 5 items of nums when asked for items greater then 5', function() {
+            var tmpArr = nums.where(function(x) {return x > 5});
+            expect( tmpArr[0] ).toBe( 6 );
+            expect( tmpArr[4] ).toBe( 10 );
+        });
+
+        it( 'should return all people over 20 years old', function() {
+            var tmpArr = people.where(function(x) {return x.age > 20});
+            expect(tmpArr.count()).toBe(7);
+        });
     });
     
 });

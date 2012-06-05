@@ -20,16 +20,26 @@
     
     a.prototype.first = a.prototype.single = function( predicate ) {
         var items = this;
-        if( !predicate ) return items[0];
+        if( !predicate ) {
+            return items[0];
+        }
         return items.find(predicate)[0];
     };
     
-    a.prototype.count = function() {
-        return this.length;
+    a.prototype.count = function( predicate ) {
+        var items = this;
+        if( !predicate ) { 
+            return this.length;
+        }
+        return items.find(predicate).length;
     };
 
-    a.prototype.any = function() {
-        return this.length > 0;
+    a.prototype.any = function( predicate ) {
+        var items = this;
+        if( !predicate ) {
+            return this.length > 0;
+        }
+        return ( items.length <= 0 ) ? false : items.find(predicate).length > 0;
     };
 
     a.prototype.toHash = a.prototype.toDictionary = function( key ) {

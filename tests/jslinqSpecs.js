@@ -1,40 +1,45 @@
-describe( 'formatWith', function() {
+describe( 'With jsLINQ', function() {
+    var empty = [],
+        nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        people = [
+            new helpers.Person( 'Jon', 'Doe', 27, '05/12/84' ),
+            new helpers.Person( 'Ryan', 'Smith', 29, '08/05/82' ),
+            new helpers.Person( 'Adam', 'Bo', 34, '07/24/77' ),
+            new helpers.Person( 'Jon', 'Doe', 30, '01/14/81' ),
+            new helpers.Person( 'Aurora', 'Assar', 31, '10/18/80' ),
+            new helpers.Person( 'Chris', 'Barton', 20, '03/11/91' ),
+            new helpers.Person( 'Ray', 'Weeks', 22, '08/16/89' ),
+            new helpers.Person( 'Jesus', 'Sims', 18, '02/03/93' ),
+            new helpers.Person( 'Sandy', 'Serrano', 27, '12/06/84' )
+        ];
 
-    describe( 'When using sequential indexes', function() {
-        var mockSequentialString = '{0} {1} {2}';
-        it( 'should replace {0} with first supplied argument of "foo"', function() {
-            expect( mockSequentialString.formatWith( 'foo' )).toBe( 'foo {1} {2}' );
+    describe( 'When using any()', function() {
+        describe( 'without a predicate', function() {
+            it( 'should return false with an empty array', function() {
+                expect( empty.any() ).toBe(false);
+            });
+
+            it( 'should return true with an empty array', function() {
+                expect( nums.any() ).toBe(true);
+            });
         });
+        describe( 'with a predicate', function() { 
+           it( 'should return false when asked for nums greater then 50', function() {
+                expect( empty.any(function(x) {return x > 50}) ).toBe(false);
+            });
 
-        it( 'should replace {1} with second supplied argument of "bar"', function() {
-            expect( mockSequentialString.formatWith( 'foo', 'bar' ) ).toBe( 'foo bar {2}' );
-        });
+            it( 'should return true when asked for nums greater then 5', function() {
+                expect( nums.any(function(x) {return x > 5}) ).toBe(true);
+            }); 
 
-        it( 'should replace {2} with second supplied argument of "baz"', function() {
-            expect( mockSequentialString.formatWith( 'foo', 'bar', 'baz' ) ).toBe( 'foo bar baz' );
+            it( 'should be able to filter on arrays of objects by property values', function() {
+                expect( people.any(function(x) {return x.age > 25}) ).toBe(true);
+                expect( people.any(function(x) {return x.first === 'Jesus'}) ).toBe(true);
+                expect( people.any(function(x) {return x.last === 'foobar'}) ).toBe(false);
+            });
         });
     });
 
-    describe("When using object properties", function() {
-        var mockObjectStringSingle = '{firstName} - {lastName}',
-            mockObjectStringMultiple = '{firstName} {lastName} - {firstName} {firstName}',
-            mockObjectStringCase = '{FirstName} - {LastName}',
-            person = {
-                firstName: 'Mock',
-                lastName: 'Smith'
-            };
-
-        it( 'should replace {firstName} and {lastName} with values from corresponding prop names of supplied person object', function() {
-            expect( mockObjectStringSingle.formatWith( person )).toBe( 'Mock - Smith' );
-        });
-
-        it( 'should replace all instances of {firstName} with value from corresponding prop name of supplied person object', function() {
-            expect( mockObjectStringMultiple.formatWith( person )).toBe( 'Mock Smith - Mock Mock' );
-        });
-
-        it( 'should be case sensitive and not replace {FirstName} and {LastName} with values from supplied person object', function() {
-            expect( mockObjectStringCase.formatWith( person )).toBe( '{FirstName} - {LastName}' );
-        });
-    });
+    
 });
 

@@ -32,6 +32,19 @@
         return this.length > 0;
     };
 
+    a.prototype.toHash = a.prototype.toDictionary = function(key) {
+        var items = this, l = items.length, i = 0, obj = {};
+        for( i; i < l; i++ ) {
+            if(!key) {
+                obj[i] = items[i]
+            } else {
+                obj[items[i][key]] = items[i];
+            }
+        }
+
+        return obj;
+    };
+
     a.prototype.orderBy = function( prop ) {
         var items = this, l = items.length, type, action;
         type = ( !prop ) ? getType( items[0] ) : getType( items[0][prop] );

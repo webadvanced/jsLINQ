@@ -15,11 +15,11 @@ describe( 'With jsLINQ', function() {
 
     describe( 'When using any()', function() {
         describe( 'without a predicate', function() {
-            it( 'should return false with an empty array', function() {
+            it( 'should return false with empty array', function() {
                 expect( empty.any() ).toBe(false);
             });
 
-            it( 'should return true with an empty array', function() {
+            it( 'should return true with nums array', function() {
                 expect( nums.any() ).toBe(true);
             });
         });
@@ -32,14 +32,40 @@ describe( 'With jsLINQ', function() {
                 expect( nums.any(function(x) {return x > 5}) ).toBe(true);
             }); 
 
-            it( 'should be able to filter on arrays of objects by property values', function() {
+            it( 'should be able to filter on people by objects property values', function() {
                 expect( people.any(function(x) {return x.age > 25}) ).toBe(true);
                 expect( people.any(function(x) {return x.first === 'Jesus'}) ).toBe(true);
                 expect( people.any(function(x) {return x.last === 'foobar'}) ).toBe(false);
             });
         });
     });
+    
+    describe( 'When using count()', function() {
+        describe( 'without a predicate', function() {
+            it( 'should return 0 with empty array', function() {
+                expect( empty.count() ).toBe(0);
+            });
 
+            it( 'should return 10 with nums array', function() {
+                expect( nums.count() ).toBe(10);
+            });
+        });
+        describe( 'with a predicate', function() { 
+            it( 'should return 0 when asked for nums greater then 50', function() {
+                expect( empty.count(function(x) {return x > 50}) ).toBe(0);
+            });
+
+            it( 'should return 5 when asked for nums greater then 5', function() {
+                expect( nums.count(function(x) {return x > 5}) ).toBe(5);
+            }); 
+
+            it( 'should be able to get count on people by objects property values', function() {
+                expect( people.count(function(x) {return x.age > 25}) ).toBe(6);
+                expect( people.count(function(x) {return x.first === 'Jesus'}) ).toBe(1);
+                expect( people.count(function(x) {return x.last === 'foobar'}) ).toBe(0);
+            });
+        });
+    });
     
 });
 

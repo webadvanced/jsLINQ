@@ -18,7 +18,7 @@
         return ( count > l ) ? items.slice( count - l ) : items.slice( count );
     };
     
-    a.prototype.first = function( predicate ) {
+    a.prototype.first = a.prototype.single = function( predicate ) {
         var items = this;
         if( !predicate ) return items[0];
         return items.find(predicate)[0];

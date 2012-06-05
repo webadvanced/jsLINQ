@@ -36,7 +36,7 @@ var person = arr.find(function(x) {
 
 
 var firstTen = nArr.take(10);
-var skitpTwoTakeTwo = arr.skip(2).take(2).orderBy('age');
+var skipTwoTakeTwo = arr.skip(2).take(2).orderBy('age');
 console.log(people);
 console.log(paul);
 console.log(reza);

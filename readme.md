@@ -7,7 +7,7 @@
 - skip (arg: int count)
 - take (arg: int count)
 - orderBy (arg: string prop or none)
-- toHash = toDictionary (arg: string key or none)
+- toHash or toDictionary (arg: string key or none)
 
 ```javascript
 var nArr = [1,9,19,4,5,15,7,8,2,10,11,12,13,14,6,16,17,18,3,20,21,22];    
@@ -46,4 +46,4 @@ console.log(skitpTenTakeFive);
 console.log(nArr.orderBy());
 console.log(arr.orderBy('age'));
 console.log(arr.orderBy('name'));
-​```
+​```javascript

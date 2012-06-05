@@ -32,11 +32,11 @@
         return this.length > 0;
     };
 
-    a.prototype.toHash = a.prototype.toDictionary = function(key) {
+    a.prototype.toHash = a.prototype.toDictionary = function( key ) {
         var items = this, l = items.length, i = 0, obj = {};
         for( i; i < l; i++ ) {
-            if(!key) {
-                obj[i] = items[i]
+            if(!obj) {
+                obj[i] = items[i];
             } else {
                 obj[items[i][key]] = items[i];
             }
@@ -49,9 +49,9 @@
         var items = this, l = items.length, type, action;
         type = ( !prop ) ? getType( items[0] ) : getType( items[0][prop] );
         if( !prop ){
-            return ( type !== '[Number]' ) ? items.sort( sortString ) : items.sort( sortNumber );
+            return ( type === '[String]' ) ? items.sort( sortString ) : items.sort( sortNumber );
         }
-        return ( type !== '[Number]' ) ? items.sort(sortProxy(sortString, prop)) : items.sort(sortProxy(sortNumber, prop));
+        return ( type === '[String]' ) ? items.sort(sortProxy(sortString, prop)) : items.sort(sortProxy(sortNumber, prop));
     };
     
     var getType, sortNumber, sortString, sortProxy;

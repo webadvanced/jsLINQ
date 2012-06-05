@@ -96,6 +96,7 @@ describe( 'With jsLINQ', function() {
     describe( 'When using where()', function() {
         it( 'should return all if no predicate is passed', function() {
             expect( nums.where().count() ).toBe( 10 );
+            expect( people.where().count() ).toBe( 9 );
         });
 
         it( 'should return the second 5 items of nums when asked for items greater then 5', function() {
@@ -110,5 +111,26 @@ describe( 'With jsLINQ', function() {
         });
     });
     
+    describe( 'When using select()', function() {
+        it( 'should return all if no predicate is passed', function() {
+            expect( nums.where().count() ).toBe( 10 );
+            expect( people.where().count() ).toBe( 9 );
+        });
+
+        it( 'should return an array of full names from people when passed a transform calling full()', function() {
+            var tmpArr = people.select( function(x) {return x.full()} );
+            expect(tmpArr.count()).toBe( 9 );
+            expect(tmpArr[0]).toBe( 'Jon Doe' );
+            expect(tmpArr[8]).toBe( 'Sandy Serrano' );
+        });
+
+        it( 'should return an array of numbers ++ from nums when passed a transform calling x + 1', function() {
+            var tmpArr = nums.select( function(x) {return x + 1} );
+            expect(tmpArr.count()).toBe( 10 );
+            expect(tmpArr[0]).toBe( 2 );
+            expect(tmpArr[9]).toBe( 11 );
+        });
+    });
+
 });
 

@@ -1,5 +1,7 @@
 #Coming Soon, but here are some examples#
 
+- any
+- count
 - first or single (arg: predicate or none)
 - where or select (arg: predicate)
 - skip (arg: int)

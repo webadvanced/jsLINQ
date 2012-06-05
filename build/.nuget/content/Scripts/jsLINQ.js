@@ -24,16 +24,12 @@
         return items.find(predicate)[0];
     };
     
-    a.prototype.any = function() {
-        return this.length > 0;                
-    };
-        
-    a.prototype.max = function() {
-    return Math.max.apply( Math, this );
+    a.prototype.count = function() {
+        return this.length;
     };
 
-    a.prototype.min = function() {
-        return Math.min.apply( Math, this );
+    a.prototype.any = function() {
+        return this.length > 0;
     };
 
     a.prototype.orderBy = function( prop ) {

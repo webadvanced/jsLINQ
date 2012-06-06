@@ -1,7 +1,7 @@
 (function( a, o ) {
     a.prototype.where = function( predicate ) {
         var items = this, i = 0, l = items.length, arr = [];
-        if(!predicate) return items;
+        if( predicate === undefined ) return items;
         for(i; i < l; i++) {
             var item = items[i];
             if(predicate(item) === true) arr.push( item );
@@ -11,6 +11,7 @@
 
     a.prototype.select = function( func ) {
         var items = this, i = 0, l = items.length, arr = [];
+        if( func === undefined ) return items;
         for(i; i < l; i++) {
             var item = items[i];
             arr.push( func( item ) );
@@ -25,6 +26,8 @@
     
     a.prototype.skip = function( count ) {
         var items = this, l = items.length;
+        if( count === undefined ) return items;
+        if( getType(count) !== '[Number]' ) throw 'count must be a number';
         return ( count > l ) ? items.slice( count - l ) : items.slice( count );
     };
     
@@ -38,7 +41,7 @@
     
     a.prototype.count = function( predicate ) {
         var items = this;
-        if( !predicate ) { 
+        if( predicate  === undefined ) { 
             return this.length;
         }
         return items.where(predicate).length;
@@ -46,7 +49,7 @@
 
     a.prototype.any = function( predicate ) {
         var items = this;
-        if( !predicate ) {
+        if( predicate === undefined ) {
             return this.length > 0;
         }
         return ( items.length <= 0 ) ? false : items.where(predicate).length > 0;
@@ -67,8 +70,8 @@
 
     a.prototype.orderBy = function( prop ) {
         var items = this, l = items.length, type, action;
-        type = ( !prop ) ? getType( items[0] ) : getType( items[0][prop] );
-        if( !prop ){
+        type = ( prop === undefined ) ? getType( items[0] ) : getType( items[0][prop] );
+        if( prop === undefined ){
             return ( type === '[String]' ) ? items.sort( sortString ) : items.sort( sortNumber );
         }
         return ( type === '[String]' ) ? items.sort(sortProxy(sortString, prop)) : items.sort(sortProxy(sortNumber, prop));
@@ -87,12 +90,12 @@
     };
 
     sortNumber = function( a, b, prop ) {
-        return ( !prop ) ? a - b : a[prop] - b[prop];
+        return ( prop === undefined ) ? a - b : a[prop] - b[prop];
     };
     sortString = function( a, b, prop ) {
         var _a, _b;
-        _a = ( !prop ? a : a[prop] ).toLowerCase();
-        _b = ( !prop ? b : b[prop] ).toLowerCase();
+        _a = ( prop === undefined ? a : a[prop] ).toLowerCase();
+        _b = ( prop === undefined ? b : b[prop] ).toLowerCase();
         if( _a < b ) return -1;
         if( _a > b ) return 1;
         return 0;

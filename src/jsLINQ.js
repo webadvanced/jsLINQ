@@ -59,8 +59,9 @@
 
     a.prototype.toHash = a.prototype.toDictionary = function( key ) {
         var items = this, l = items.length, i = 0, obj = {};
+        if(key && items[0][key] === undefined) throw 'key is only valid for arrays of Object';
         for( i; i < l; i++ ) {
-            if(!obj) {
+            if(!key) {
                 obj[i] = items[i];
             } else {
                 obj[items[i][key]] = items[i];

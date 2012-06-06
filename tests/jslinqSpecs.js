@@ -257,8 +257,27 @@ describe( 'With jsLINQ', function() {
                 expect(tmpArr[0].full()).toBe('Jesus Sims');
                 expect(tmpArr[8].full()).toBe('Adam Bo');
             });
-
         });
+    });
+
+    describe( 'when using toDictionary() - toHash()', function() {
+        it( 'should use the index of the array when no argument key is provided', function() {
+            var hash = nums.toHash();
+            expect(hash[0]).toBe(1);
+            expect(hash[9]).toBe(10);
+        });
+
+        it( 'should throw if key argument is supplied on arrays of primimitive types (String, Number, Date)', function() {
+            expect(function() {numsNotSequential.toHash('foo')}).toThrow();
+            expect(function() {strsNotSequential.toHash('foo')}).toThrow();
+            expect(function() {datesNotSequential.toHash('foo')}).toThrow();
+        });
+
+        it( 'should use the value of each object in people by argument key as hash key', function(){
+            var obj = people.toHash('last');
+            expect(obj['Bo'].full()).toBe('Adam Bo');
+        });
+
     });
 });
 

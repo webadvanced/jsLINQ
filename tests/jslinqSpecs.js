@@ -138,7 +138,7 @@ describe( 'With jsLINQ', function() {
             expect( people.skip().count() ).toBe( 9 );
         });
 
-        it( 'should throw if (not a number) is passed', function() {
+        it( 'should throw if (not a number) is passed as count argument', function() {
             expect(function() { nums.skip('10') }).toThrow();
             expect(function() { nums.skip([]) }).toThrow();
             expect(function() { nums.skip({}) }).toThrow();
@@ -149,7 +149,36 @@ describe( 'With jsLINQ', function() {
             expect(tmpArr.count()).toBe(5);
             expect(tmpArr.first()).toBe(6);
         });
+
+        it( 'should return an empty array if skip is greater then nums length', function() {
+            var tmpArr = nums.skip(50);
+            expect(tmpArr.count()).toBe(0);
+        });
+
     });
 
+    describe( 'When using take()', function() {
+        it( 'should return all if no count is passed', function() {
+            expect( nums.take().count() ).toBe( 10 );
+            expect( people.take().count() ).toBe( 9 );
+        });
+
+        it( 'should throw if (not a number) is passed as count argument', function() {
+            expect(function() { nums.take('10') }).toThrow();
+            expect(function() { nums.take([]) }).toThrow();
+            expect(function() { nums.take({}) }).toThrow();
+        });
+
+        it( 'should take the first 2 people when passed 2', function() {
+            var tmpArr = people.take(2);
+            expect(tmpArr.count()).toBe(2);
+            expect(tmpArr.first().full()).toBe('Jon Doe');
+        });
+
+        it( 'should return all items if count is greater then nums length', function() {
+            var tmpArr = nums.take(50);
+            expect(tmpArr.count()).toBe(10);
+        });
+    });
 });
 

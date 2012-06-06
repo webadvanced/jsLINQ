@@ -21,6 +21,8 @@
     
     a.prototype.take = function( count ) {
         var items = this, l = items.length;
+        if( count === undefined ) return items;
+        if( getType(count) !== '[Number]' ) throw 'count must be a number';
         return ( count > l ) ? items : items.slice( 0, count );
     };
     

@@ -1,7 +1,7 @@
 #Coming Soon, but here are some examples#
 
 
-**API
+**API**
 
 - any (arg: func predicate or none)
 - count (arg: func predicate or none)
@@ -14,7 +14,7 @@
 - toHash or toDictionary (arg: string key or none)
 
 
-**Simple examples
+**Simple examples**
 
 ```javascript
 var nums = [1,9,19,4,5,15,7,8,2,10,11,12,13,14,6,16,17,18,3,20,21,22];    

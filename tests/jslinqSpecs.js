@@ -1,16 +1,19 @@
 describe( 'With jsLINQ', function() {
     var empty = [],
         nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        numsNotSequential = [1, 7, 3, 10, 5, 6, 2, 8, 9, 4],
+        strsNotSequential = ['a', 'c', 'd', 'b', 'f', 'e'],
+        datesNotSequential = [new Date('01/02/2012'), new Date('01/04/2012'), new Date('01/05/2012'), new Date('01/01/2012'), new Date('01/03/2012')],
         people = [
-            new helpers.Person( 'Jon', 'Doe', 27, '05/12/84' ),
-            new helpers.Person( 'Ryan', 'Smith', 29, '08/05/82' ),
-            new helpers.Person( 'Adam', 'Bo', 34, '07/24/77' ),
-            new helpers.Person( 'Jon', 'Doe', 30, '01/14/81' ),
-            new helpers.Person( 'Aurora', 'Assar', 31, '10/18/80' ),
-            new helpers.Person( 'Chris', 'Barton', 20, '03/11/91' ),
-            new helpers.Person( 'Ray', 'Weeks', 22, '08/16/89' ),
-            new helpers.Person( 'Jesus', 'Sims', 18, '02/03/93' ),
-            new helpers.Person( 'Sandy', 'Serrano', 27, '12/06/84' )
+            new helpers.Person( 'Jon', 'Doe', 27, '05/12/1984' ),
+            new helpers.Person( 'Ryan', 'Smith', 29, '08/05/1982' ),
+            new helpers.Person( 'Adam', 'Bo', 34, '07/24/1977' ),
+            new helpers.Person( 'Jon', 'Doe', 30, '01/14/1981' ),
+            new helpers.Person( 'Aurora', 'Assar', 31, '10/18/1980' ),
+            new helpers.Person( 'Chris', 'Barton', 20, '03/11/1991' ),
+            new helpers.Person( 'Ray', 'Weeks', 22, '08/16/1989' ),
+            new helpers.Person( 'Jesus', 'Sims', 18, '02/03/1993' ),
+            new helpers.Person( 'Sandy', 'Serrano', 27, '12/06/1984' )
         ];
 
     describe( 'When using any()', function() {
@@ -178,6 +181,83 @@ describe( 'With jsLINQ', function() {
         it( 'should return all items if count is greater then nums length', function() {
             var tmpArr = nums.take(50);
             expect(tmpArr.count()).toBe(10);
+        });
+    });
+
+    describe( 'When using orderBy() or order()', function() {
+        describe( 'with arrays made up of primitive types (Date, String, Number)', function() {
+            
+            it( 'should thorw if prop is passed with array of Date, String or Number', function() {
+                expect(function() {numsNotSequential.orderBy('foo')}).toThrow();
+                expect(function() {strsNotSequential.orderBy('foo')}).toThrow();
+                expect(function() {datesNotSequential.orderBy('foo')}).toThrow();
+            });
+
+            it( 'should sort numsNotSequential', function() {
+                var tmpArr = numsNotSequential.order();
+                expect(tmpArr[0]).toBe(1);
+                expect(tmpArr[1]).toBe(2);
+                expect(tmpArr[2]).toBe(3);
+                expect(tmpArr[3]).toBe(4);
+                expect(tmpArr[4]).toBe(5);
+                expect(tmpArr[5]).toBe(6);
+                expect(tmpArr[6]).toBe(7);
+                expect(tmpArr[7]).toBe(8);
+                expect(tmpArr[8]).toBe(9);
+                expect(tmpArr[9]).toBe(10);
+            });
+
+            it( 'should sort strsNotSequential', function() {
+                var tmpArr = strsNotSequential.order();
+                expect(tmpArr[0]).toBe('a');
+                expect(tmpArr[1]).toBe('b');
+                expect(tmpArr[2]).toBe('c');
+                expect(tmpArr[3]).toBe('d');
+                expect(tmpArr[4]).toBe('e');
+                expect(tmpArr[5]).toBe('f');
+            });
+
+            it( 'should sort datesNotSequential', function() {
+                var tmpArr = datesNotSequential.order();
+                expect(tmpArr[0].getDay()).toBe(0); //Monday
+                expect(tmpArr[1].getDay()).toBe(1); //Tuesday
+                expect(tmpArr[2].getDay()).toBe(2); //Wednesday
+                expect(tmpArr[3].getDay()).toBe(3); //Thursday
+                expect(tmpArr[4].getDay()).toBe(4); //Friday
+            });
+        })
+        describe( 'with arrays made up of objects', function() {
+            it( 'should default compare (a - b) when no prop is passed', function() {
+                var tmpArr = people.order();
+                expect(tmpArr[0]).toBe(people[0]);
+                expect(tmpArr[1]).toBe(people[1]);
+                expect(tmpArr[2]).toBe(people[2]);
+                expect(tmpArr[3]).toBe(people[3]);
+                expect(tmpArr[4]).toBe(people[4]);
+                expect(tmpArr[5]).toBe(people[5]);
+                expect(tmpArr[6]).toBe(people[6]);
+                expect(tmpArr[7]).toBe(people[7]);
+                expect(tmpArr[8]).toBe(people[8]);
+            });
+
+            it( 'should sort on "dob" of people', function() {
+                var tmpArr = people.orderBy('dob');
+                expect(tmpArr.first().full()).toBe('Adam Bo');
+                expect(tmpArr[8].full()).toBe('Jesus Sims');
+            });
+
+            it( 'should sort on "last" of people', function() {
+                var tmpArr = people.orderBy('last');
+                expect(tmpArr[0].last).toBe('Assar');
+                expect(tmpArr[8].last).toBe('Weeks');
+            });
+
+            it( 'should sort on "age" of people', function() {
+                var tmpArr = people.orderBy('age');
+                expect(tmpArr[0].full()).toBe('Jesus Sims');
+                expect(tmpArr[8].full()).toBe('Adam Bo');
+            });
+
         });
     });
 });

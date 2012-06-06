@@ -70,12 +70,14 @@
         return obj;
     };
 
-    a.prototype.orderBy = function( prop ) {
+    a.prototype.orderBy = a.prototype.order = function( prop ) {
         var items = this, l = items.length, type, action;
         type = ( prop === undefined ) ? getType( items[0] ) : getType( items[0][prop] );
-        if( prop === undefined ){
+        if( prop !== undefined && type !== '[Object]' && items[0][prop] === undefined ) throw 'cannot use prop with an Array of primitive types (String, Date, Number, Bool)';
+        if( prop === undefined ) {
             return ( type === '[String]' ) ? items.sort( sortString ) : items.sort( sortNumber );
         }
+
         return ( type === '[String]' ) ? items.sort(sortProxy(sortString, prop)) : items.sort(sortProxy(sortNumber, prop));
     };
     
@@ -94,12 +96,11 @@
     sortNumber = function( a, b, prop ) {
         return ( prop === undefined ) ? a - b : a[prop] - b[prop];
     };
+
     sortString = function( a, b, prop ) {
         var _a, _b;
-        _a = ( prop === undefined ? a : a[prop] ).toLowerCase();
-        _b = ( prop === undefined ? b : b[prop] ).toLowerCase();
-        if( _a < b ) return -1;
-        if( _a > b ) return 1;
-        return 0;
+        _a = ( prop === undefined ? a : a[prop] );
+        _b = ( prop === undefined ? b : b[prop] );
+        return _a.localeCompare(_b);
     };
 })(Array, Object);

@@ -1,17 +1,24 @@
 #Coming Soon, but here are some examples#
 
-- any
-- count
+
+**API
+
+- any (arg: func predicate or none)
+- count (arg: func predicate or none)
 - first or single (arg: func predicate or none)
-- where or select (arg: func predicate)
+- where or all (arg: func predicate)
+- select (arg: func transform)
 - skip (arg: int count)
 - take (arg: int count)
 - orderBy (arg: string prop or none)
 - toHash or toDictionary (arg: string key or none)
 
+
+**Simple examples
+
 ```javascript
-var nArr = [1,9,19,4,5,15,7,8,2,10,11,12,13,14,6,16,17,18,3,20,21,22];    
-var arr = [
+var nums = [1,9,19,4,5,15,7,8,2,10,11,12,13,14,6,16,17,18,3,20,21,22];    
+var people = [
     {name: 'Paul', age: 31},
     {name: 'Reza', age: 26},
     {name: 'Adam', age: 34},
@@ -19,30 +26,14 @@ var arr = [
     {name: 'Sarah', age: 22}
 ];
 
-var people = arr.select(function(x) {
-    return x.age > 21;
-});
+var numsOverFiveOrdered = nums.where(function(n) {return n > 5}).order(); 
+//numsOverFiveOrdered: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
 
-var paul = arr.first();
+var numsSkipTenTakeTenOrder = nums.skip(10).take(10).order();
+//numsSkipTenTakeTenOrder: [3,6,11,12,13,14,16,17,18,20]
 
-var reza = arr.first(function(x) {
-    return x.name == 'Reza';
-});
+var peopleOver21OrderedByName = people.where(function(x) {return x.age > 21}).orderBy('name');
+//peopleOver21OrderedByName: [{name: 'Adam', age: 34}, {name: 'Paul', age: 31}, {name: 'Reza', age: 26}, , {name: 'Sarah', age: 22}];
 
-//first person over 21
-var person = arr.where(function(x) {
-    return x.age > 21;
-}).first();
-
-
-var firstTen = nArr.take(10);
-var skipTwoTakeTwo = arr.skip(2).take(2).orderBy('age');
-console.log(people);
-console.log(paul);
-console.log(reza);
-console.log(person);
-console.log(firstTen);
-console.log(skitpTenTakeFive);
-console.log(nArr.orderBy());
-console.log(arr.orderBy('age'));
-console.log(arr.orderBy('name'));
+var namesOver21OrderedByAge = people.where(function(x) {return x.age > 21}).orderBy('age').select(function(x) {return x.name});
+//namesOver21OrderedByAge: ['Sarah', 'Reza', 'Paul', 'Adam']

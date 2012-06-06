@@ -1,5 +1,5 @@
 (function( a, o ) {
-    a.prototype.where = function( predicate ) {
+    a.prototype.where = a.prototype.all = function( predicate ) {
         var items = this, i = 0, l = items.length, arr = [];
         if( predicate === undefined ) return items;
         for(i; i < l; i++) {

@@ -1,13 +1,16 @@
 (function( a, o ) {
-    a.prototype.where = a.prototype.all = function( predicate ) {
-        var items = this, i = 0, l = items.length, arr = [];
-        if( predicate === undefined ) return items;
-        for(i; i < l; i++) {
-            var item = items[i];
-            if(predicate(item) === true) arr.push( item );
-        }
-        return arr;
-    };
+
+    if(a.where === undefined) {
+        a.prototype.where = a.prototype.all = function( predicate ) {
+            var items = this, i = 0, l = items.length, arr = [];
+            if( predicate === undefined ) return items;
+            for(i; i < l; i++) {
+                var item = items[i];
+                if(predicate(item) === true) arr.push( item );
+            }
+            return arr;
+        };
+    }
 
     a.prototype.select = function( func ) {
         var items = this, i = 0, l = items.length, arr = [];

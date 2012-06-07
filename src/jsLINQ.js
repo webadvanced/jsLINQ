@@ -169,18 +169,18 @@
 
     if( a.union === _undefined ) {
         a.fn.union = function() {
-            var items = this, arr = [].concat( items );
-            if( !arguments.length ) throw "arguments must be Arrays";
-            items.each(function( item, i ) {
-                arr = arr.concat( arguments[i] );  
-            });
+            var items = this, arr = [].concat( items ), l = arguments.length, i = 0;
+            if( !l ) throw "arguments must be Arrays";
+            for( i; i < l; i++ ) {
+                arr = arr.concat( arguments[i] );
+            }
             return arr.unique();
         };
     }
 
     if( a.intersect === _undefined ) {
         a.fn.intersect = function( oArr ) {
-            var items = this, arr = arr2 = null, n = l2 = 0, l = arguments.length;
+            var items = this, arr, arr2, n = 0, l2 = 0, l = arguments.length;
             if( !l ) throw "arguments must be Arrays";
             while( n < arguments.length ) {
                 l = items.length;

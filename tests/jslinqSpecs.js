@@ -369,5 +369,9 @@ describe( 'With jsLINQ', function() {
             expect(tmpArr.where(function(x) {return x === 'b';}).count()).toBe(1);
         });
     });
+
+    describe( 'when using union()', function() {
+
+    });
 });
 

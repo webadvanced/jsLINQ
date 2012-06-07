@@ -2,7 +2,7 @@ describe( 'With jsLINQ', function() {
     var empty = [],
         nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         numsNotSequential = [1, 7, 3, 10, 5, 6, 2, 8, 9, 4],
-        numsDups = [25, 200, 47, 12, 98, 365, 5, 200, 74, 98],
+        numsDups = [25, 200, 47, 3, 98, 365, 5, 200, 2, 98],
         strsNotSequential = ['a', 'c', 'd', 'b', 'f', 'e'],
         strsDups = ['a', 'b', 'c', 'a', 'b'],
         datesNotSequential = [new Date('01/02/2012'), new Date('01/04/2012'), new Date('01/05/2012'), new Date('01/01/2012'), new Date('01/03/2012')],
@@ -371,7 +371,21 @@ describe( 'With jsLINQ', function() {
     });
 
     describe( 'when using union()', function() {
+        it( 'should thorw if no arguments are supplied', function() {
+            expect(function(){nums.union()}).toThrow();
+        });
 
+        it( 'should only return unique array from nums and numsDups', function() {
+            var tmpArr = nums.union(numsDups);
+            expect(tmpArr.count()).toBe(15);
+            expect(tmpArr.where(function(x) {return x === 5;}).count()).toBe(1);
+        });
+
+        it( 'should only return unique array from nums, numsNotSequential and numsDups', function() {
+            var tmpArr = nums.union(numsDups, numsNotSequential);
+            expect(tmpArr.count()).toBe(15);
+            expect(tmpArr.where(function(x) {return x === 5;}).count()).toBe(1);
+        });
     });
 });
 

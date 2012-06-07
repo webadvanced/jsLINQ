@@ -17,23 +17,21 @@
 
     if( a.where === _undefined ) {
         a.fn.where = a.fn.all = function( predicate ) {
-            var items = this, i = 0, l = items.length, arr = [];
+            var items = this, arr = [];
             if( predicate === _undefined ) return items;
-            for(i; i < l; i++) {
-                var item = items[i];
+            items.each(function(item) {
                 if(predicate(item) === true) arr.push( item );
-            }
+            });
             return arr;
         };
     }
     if( a.select === _undefined ) {
         a.fn.select = function( func ) {
-            var items = this, i = 0, l = items.length, arr = [];
+            var items = this, arr = [];
             if( func === _undefined ) return items;
-            for(i; i < l; i++) {
-                var item = items[i];
+            items.each(function(item) {
                 arr.push( func( item ) );
-            }
+            });
             return arr;
         };
     }

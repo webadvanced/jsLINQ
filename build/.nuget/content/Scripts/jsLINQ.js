@@ -17,23 +17,21 @@
 
     if( a.where === _undefined ) {
         a.fn.where = a.fn.all = function( predicate ) {
-            var items = this, i = 0, l = items.length, arr = [];
+            var items = this, arr = [];
             if( predicate === _undefined ) return items;
-            for(i; i < l; i++) {
-                var item = items[i];
+            items.each(function(item) {
                 if(predicate(item) === true) arr.push( item );
-            }
+            });
             return arr;
         };
     }
     if( a.select === _undefined ) {
         a.fn.select = function( func ) {
-            var items = this, i = 0, l = items.length, arr = [];
+            var items = this, arr = [];
             if( func === _undefined ) return items;
-            for(i; i < l; i++) {
-                var item = items[i];
+            items.each(function(item) {
                 arr.push( func( item ) );
-            }
+            });
             return arr;
         };
     }
@@ -109,20 +107,19 @@
             if( prop === _undefined ) {
                 return ( type === '[String]' ) ? items.sort( sortString ) : items.sort( sortNumber );
             }
-
             return ( type === '[String]' ) ? items.sort(sortProxy(sortString, prop)) : items.sort(sortProxy(sortNumber, prop));
         };
     }
 
     if( a.sum === _undefined ) {
         a.fn.sum = function( prop ) {
-            var items = this, l = items.length, type, sum = 0, i = 0;
+            var items = this, type, sum = 0;
             type = ( prop === _undefined ) ? getType( items[0] ) : getType( items[0][prop] );
             if( type !== '[Number]' ) throw 'array values must be a Number';
-            for( i; i < l; i++ ) {
+            items.each(function(item, i) {
                 var val = ( prop === _undefined ) ? items[i] : items[i][prop];
                 sum += val;
-            }
+            });
             return sum;
         };
     }

@@ -12,6 +12,8 @@
 - take (arg: int count)
 - orderBy (arg: string prop or none)
 - toHash or toDictionary (arg: string key or none)
+- sum (arg: string prop or none)
+- average or mean (arg: string prop or none)
 
 
 **Simple examples**

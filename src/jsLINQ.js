@@ -94,7 +94,7 @@
 
     if( a.orderBy === _undefined || a.order === _undefined ) {
         a.fn.orderBy = a.fn.order = function( prop ) {
-            var items = this, l = items.length, type, action;
+            var items = this, type, action;
             type = ( prop === _undefined ) ? getType( items[0] ) : getType( items[0][prop] );
             if( prop !== _undefined && type !== '[Object]' && items[0][prop] === _undefined ) throw 'cannot use prop with an Array of primitive types (String, Date, Number, Bool)';
             if( prop === _undefined ) {
@@ -107,7 +107,7 @@
 
     if( a.sum === _undefined ) {
         a.fn.sum = function( prop ) {
-            var items = this, l = items.length, type, sum = i = 0;
+            var items = this, l = items.length, type, sum = 0, i = 0;
             type = ( prop === _undefined ) ? getType( items[0] ) : getType( items[0][prop] );
             if( type !== '[Number]' ) throw 'array values must be a Number';
             for( i; i < l; i++ ) {

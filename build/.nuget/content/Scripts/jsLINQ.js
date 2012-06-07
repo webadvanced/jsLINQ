@@ -153,7 +153,53 @@
         };
     }
 
-    sortProxy = function(func, prop) {
+    if( a.unique === _undefined ) {
+        a.fn.unique = function() {
+            var items = this, arr = [], l = items.length, i = 0;
+            for( i; i < l; i++ ) {
+              for( var j = i + 1; j < l; j++ ) {
+                if ( items[i] === items[j] )
+                  j = ++i;
+              }
+              arr.push( items[i] );
+            }
+            return arr;
+        };
+    }
+
+    if( a.union === _undefined ) {
+        a.fn.union = function() {
+            var items = this, arr = [].concat( items );
+            if( !arguments.length ) throw "arguments must be Arrays";
+            items.each(function( item, i ) {
+                arr = arr.concat( arguments[i] );  
+            });
+            return arr.unique();
+        };
+    }
+
+    if( a.intersect === _undefined ) {
+        a.fn.intersect = function( oArr ) {
+            var items = this, arr = arr2 = null, n = l2 = 0, l = arguments.length;
+            if( !l ) throw "arguments must be Arrays";
+            while( n < arguments.length ) {
+                l = items.length;
+                arr = [];
+                arr2 = arguments[n];
+                l2 = arr2.length;
+                for( var i = 0; i < l; i++ ) {
+                    for( var j = 0; j < l2; j++ ) {
+                        if( items[i] === arr2[j] ) arr.push( items[i] );
+                    }
+                }
+                items = arr;
+                n++;
+            }
+            return items.unique();
+        };
+    }
+
+    sortProxy = function( func, prop ) {
         return (function(a, b) {
                     return func(a, b, prop);
                 });

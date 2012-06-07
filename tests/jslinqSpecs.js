@@ -2,6 +2,7 @@ describe( 'With jsLINQ', function() {
     var empty = [],
         nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         numsNotSequential = [1, 7, 3, 10, 5, 6, 2, 8, 9, 4],
+        numsDups = [25, 200, 47, 12, 98, 365, 5, 200, 74, 98],
         strsNotSequential = ['a', 'c', 'd', 'b', 'f', 'e'],
         datesNotSequential = [new Date('01/02/2012'), new Date('01/04/2012'), new Date('01/05/2012'), new Date('01/01/2012'), new Date('01/03/2012')],
         people = [
@@ -349,6 +350,15 @@ describe( 'With jsLINQ', function() {
 
         it( 'should return 18 for people when passed age', function() {
             expect(people.min('age')).toBe(18);
+        });
+    });
+
+    describe( 'when using unique()', function() {
+        it( 'it should remove extra 200 and 98 from numsDups', function() {
+            var tmpArr = numsDups.unique();
+            expect(tmpArr.count()).toBe(8);
+            expect(tmpArr.where(function(x) {return x === 200;}).count()).toBe(1);
+            expect(tmpArr.where(function(x) {return x === 98;}).count()).toBe(1);
         });
     });
 });

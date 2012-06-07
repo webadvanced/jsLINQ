@@ -86,15 +86,15 @@
 
     if( a.toHash === _undefined || a.toDictionary === _undefined ) {
         a.fn.toHash = a.fn.toDictionary = function( key ) {
-            var items = this, l = items.length, i = 0, obj = {};
+            var items = this, obj = {};
             if(key && items[0][key] === _undefined) throw 'key is only valid for arrays of Object';
-            for( i; i < l; i++ ) {
+            items.each(function(item, i) {
                 if(!key) {
                     obj[i] = items[i];
                 } else {
                     obj[items[i][key]] = items[i];
                 }
-            }
+            });
             return obj;
         };
     }

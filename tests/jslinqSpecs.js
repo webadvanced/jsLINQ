@@ -279,5 +279,19 @@ describe( 'With jsLINQ', function() {
         });
 
     });
+
+    describe( 'when using sum()', function() {
+        it( 'should thorw if the data is not a Number', function() {
+            expect(function() {strsNotSequential.sum()}).toThrow();
+        });
+
+        it( 'should return 55 for nums', function() {
+            expect(nums.sum()).toBe(55);
+        });
+
+        it( 'should return 238 for people when passed arg of age', function() {
+            expect(people.sum('age')).toBe(238);
+        });
+    });
 });
 

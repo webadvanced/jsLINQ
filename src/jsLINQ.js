@@ -3,10 +3,10 @@
         sortNumber, 
         sortString, 
         sortProxy, 
-        _undefined, 
-        a.fn = a.prototype;
-    
-    if(a.where === _undefined) {
+        _undefined;
+    a.fn = a.prototype;
+
+    if( a.where === _undefined ) {
         a.fn.where = a.fn.all = function( predicate ) {
             var items = this, i = 0, l = items.length, arr = [];
             if( predicate === _undefined ) return items;
@@ -17,7 +17,7 @@
             return arr;
         };
     }
-    if(a.select === _undefined) {
+    if( a.select === _undefined ) {
         a.fn.select = function( func ) {
             var items = this, i = 0, l = items.length, arr = [];
             if( func === _undefined ) return items;
@@ -29,7 +29,7 @@
         };
     }
     
-    if(a.take === _undefined) {
+    if( a.take === _undefined ) {
         a.fn.take = function( count ) {
             var items = this, l = items.length;
             if( count === _undefined ) return items;
@@ -38,7 +38,7 @@
         };
     }
     
-    if(a.skip === _undefined) {
+    if( a.skip === _undefined ) {
         a.fn.skip = function( count ) {
             var items = this, l = items.length;
             if( count === _undefined ) return items;
@@ -47,7 +47,7 @@
         };
     }
     
-    if(a.first === _undefined || a.single === _undefined) {
+    if( a.first === _undefined || a.single === _undefined ) {
         a.fn.first = a.fn.single = function( predicate ) {
             var items = this;
             if( !predicate ) {
@@ -57,7 +57,7 @@
         };
     }
 
-    if(a.count === _undefined) {
+    if( a.count === _undefined ) {
         a.fn.count = function( predicate ) {
             var items = this;
             if( predicate  === _undefined ) { 
@@ -66,7 +66,8 @@
             return items.where(predicate).length;
         };
     }
-    if(a.any === _undefined) {
+
+    if( a.any === _undefined ) {
         a.fn.any = function( predicate ) {
             var items = this;
             if( predicate === _undefined ) {
@@ -75,7 +76,8 @@
             return ( items.length <= 0 ) ? false : items.where(predicate).length > 0;
         };
     }
-    if(a.toHash === _undefined || a.toDictionary === _undefined) {
+
+    if( a.toHash === _undefined || a.toDictionary === _undefined ) {
         a.fn.toHash = a.fn.toDictionary = function( key ) {
             var items = this, l = items.length, i = 0, obj = {};
             if(key && items[0][key] === _undefined) throw 'key is only valid for arrays of Object';
@@ -89,7 +91,8 @@
             return obj;
         };
     }
-    if(a.orderBy === _undefined) {
+
+    if( a.orderBy === _undefined || a.order === _undefined ) {
         a.fn.orderBy = a.fn.order = function( prop ) {
             var items = this, l = items.length, type, action;
             type = ( prop === _undefined ) ? getType( items[0] ) : getType( items[0][prop] );
@@ -101,6 +104,24 @@
             return ( type === '[String]' ) ? items.sort(sortProxy(sortString, prop)) : items.sort(sortProxy(sortNumber, prop));
         };
     }
+
+    if( a.sum === _undefined ) {
+        a.fn.sum = function( prop ) {
+            var items = this, l = items.length, type, sum = i = 0;
+            type = ( prop === _undefined ) ? getType( items[0] ) : getType( items[0][prop] );
+            if( type !== '[Number]' ) throw 'array values must be a Number';
+            for( i; i < l; i++ ) {
+                var val = ( prop === _undefined ) ? items[i] : items[i][prop];
+                sum += val;
+            }
+            return sum;
+        };
+    }
+
+    if( a.average === _undefined || a.mean === _undefined ) {
+
+    }
+
     sortProxy = function(func, prop) {
         return (function(a, b) {
                     return func(a, b, prop);

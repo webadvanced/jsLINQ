@@ -119,7 +119,12 @@
     }
 
     if( a.average === _undefined || a.mean === _undefined ) {
-
+        a.fn.average = a.fn.mean = function( prop ) {
+            var items = this, l = items.length, type;
+            type = ( prop === _undefined ) ? getType( items[0] ) : getType( items[0][prop] );
+            if( type !== '[Number]' ) throw 'array values must be a Number';
+            return items.sum(prop) / l;
+        };
     }
 
     sortProxy = function(func, prop) {

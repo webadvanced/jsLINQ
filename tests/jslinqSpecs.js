@@ -293,5 +293,19 @@ describe( 'With jsLINQ', function() {
             expect(people.sum('age')).toBe(238);
         });
     });
+
+    describe( 'when using average() - mean()', function() {
+        it( 'should thorw if the data is not a Number', function() {
+            expect(function() {strsNotSequential.average()}).toThrow();
+        });
+
+        it( 'should return 5.5 for nums', function() {
+            expect(nums.average()).toBe(5.5);
+        });
+
+        it( 'should return 26.444444444444443 for people when passed arg of age', function() {
+            expect(people.mean('age')).toBe(26.444444444444443);
+        });
+    });
 });
 

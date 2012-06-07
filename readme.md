@@ -20,6 +20,7 @@
 - unique (arg: none)
 - union (arg: [n])
 - intersect (arg: [n])
+- shuffle (arg: none)
 
 **Simple examples**
 

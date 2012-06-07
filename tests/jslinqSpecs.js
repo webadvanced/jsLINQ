@@ -387,5 +387,9 @@ describe( 'With jsLINQ', function() {
             expect(tmpArr.where(function(x) {return x === 5;}).count()).toBe(1);
         });
     });
+
+    describe( 'when using intersect()', function() {
+        
+    });
 });
 

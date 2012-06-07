@@ -199,6 +199,18 @@
         };
     }
 
+    if( a.shuffle === _undefined ) {
+        a.fn.intersect = function() {
+            var items = this, shuffled = [], rand;
+            items.each(function(item, i) {
+                rand = Math.floor(Math.random() * (i + 1));
+                shuffled[i] = shuffled[rand];
+                shuffled[rand] = item;
+            });
+            return shuffled;
+        };
+    }
+
     sortProxy = function( func, prop ) {
         return (function(a, b) {
                     return func(a, b, prop);

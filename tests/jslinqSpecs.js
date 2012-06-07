@@ -4,6 +4,7 @@ describe( 'With jsLINQ', function() {
         numsNotSequential = [1, 7, 3, 10, 5, 6, 2, 8, 9, 4],
         numsDups = [25, 200, 47, 12, 98, 365, 5, 200, 74, 98],
         strsNotSequential = ['a', 'c', 'd', 'b', 'f', 'e'],
+        strsDups = ['a', 'b', 'c', 'a', 'b'],
         datesNotSequential = [new Date('01/02/2012'), new Date('01/04/2012'), new Date('01/05/2012'), new Date('01/01/2012'), new Date('01/03/2012')],
         people = [
             new helpers.Person( 'Jon', 'Doe', 27, '05/12/1984' ),
@@ -354,11 +355,18 @@ describe( 'With jsLINQ', function() {
     });
 
     describe( 'when using unique()', function() {
-        it( 'it should remove extra 200 and 98 from numsDups', function() {
+        it( 'should remove extra 200 and 98 from numsDups', function() {
             var tmpArr = numsDups.unique();
             expect(tmpArr.count()).toBe(8);
             expect(tmpArr.where(function(x) {return x === 200;}).count()).toBe(1);
             expect(tmpArr.where(function(x) {return x === 98;}).count()).toBe(1);
+        });
+
+        it( 'should remove extra a and b from strsDups', function() {
+            var tmpArr = strsDups.unique();
+            expect(tmpArr.count()).toBe(3);
+            expect(tmpArr.where(function(x) {return x === 'a';}).count()).toBe(1);
+            expect(tmpArr.where(function(x) {return x === 'b';}).count()).toBe(1);
         });
     });
 });

@@ -14,7 +14,7 @@
 - toHash or toDictionary (arg: string key or none)
 - sum (arg: string prop or none)
 - average or mean (arg: string prop or none)
-- each (arg: func transform)
+- each (arg: func(item, index) transform)
 
 
 **Simple examples**

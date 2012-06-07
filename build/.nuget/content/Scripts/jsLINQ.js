@@ -6,6 +6,15 @@
         _undefined;
     a.fn = a.prototype;
 
+    if( a.each === _undefined ) {
+        a.fn.each = function( func ) {
+            var items = this, l = items.length, i = 0;
+            for( i; i < l; i++ ) {
+                func(items[i], i);
+            }
+        };
+    }
+
     if( a.where === _undefined ) {
         a.fn.where = a.fn.all = function( predicate ) {
             var items = this, i = 0, l = items.length, arr = [];

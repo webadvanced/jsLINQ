@@ -307,5 +307,21 @@ describe( 'With jsLINQ', function() {
             expect(people.mean('age')).toBe(26.444444444444443);
         });
     });
+
+    describe( 'when using each()', function() {
+        it( 'should throw if no func arg is provided', function() {
+            expect(function() {nums.each()}).toThrow()
+        });
+
+        it( 'should iterate through each item in array and execute the provided function', function() {
+            var count = 0, arr = [];
+            nums.each(function(item, i) {
+                count++;
+                arr.push(i);
+            });
+            expect(count).toBe(10);
+            expect(arr.count()).toBe(10);
+        });
+    });
 });
 

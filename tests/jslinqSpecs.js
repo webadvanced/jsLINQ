@@ -323,5 +323,33 @@ describe( 'With jsLINQ', function() {
             expect(arr.count()).toBe(10);
         });
     });
+    
+    describe( 'when using max()', function() {
+        it( 'should throw if array values are not numbers', function() {
+            expect(function() {strsNotSequential.max()}).toThrow()
+        });
+
+        it( 'should return 10 for nums', function(){
+            expect(nums.max()).toBe(10);
+        });
+
+        it( 'should return 31 for people when passed age', function() {
+            expect(people.max('age')).toBe(34);
+        });
+    });
+
+    describe( 'when using min()', function() {
+        it( 'should throw if array values are not numbers', function() {
+            expect(function() {strsNotSequential.min()}).toThrow()
+        });
+
+        it( 'should return 1 for nums', function(){
+            expect(nums.min()).toBe(1);
+        });
+
+        it( 'should return 18 for people when passed age', function() {
+            expect(people.min('age')).toBe(18);
+        });
+    });
 });
 

@@ -133,6 +133,26 @@
         };
     }
 
+    if( a.max === _undefined ) {
+        a.fn.max = function( prop ) {
+            var items = this, type, arr;
+            type = ( prop === _undefined ) ? getType( items[0] ) : getType( items[0][prop] );
+            if( type !== '[Number]' ) throw 'array values must be a Number';
+            arr = ( prop === _undefined ) ? items : items.select(function(x) {return x[prop];});
+            return Math.max.apply(Math, arr);
+        };
+    }
+
+    if( a.min === _undefined ) {
+        a.fn.min = function( prop ) {
+            var items = this, type, arr;
+            type = ( prop === _undefined ) ? getType( items[0] ) : getType( items[0][prop] );
+            if( type !== '[Number]' ) throw 'array values must be a Number';
+            arr = ( prop === _undefined ) ? items : items.select(function(x) {return x[prop];});
+            return Math.min.apply(Math, arr);
+        };
+    }
+
     sortProxy = function(func, prop) {
         return (function(a, b) {
                     return func(a, b, prop);

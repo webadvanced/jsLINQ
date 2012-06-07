@@ -15,7 +15,8 @@
 - sum (arg: string prop or none)
 - average or mean (arg: string prop or none)
 - each (arg: func(item, index) transform)
-
+- min (arg: string prop or none)
+- max (arg: string prop or none)
 
 **Simple examples**
 

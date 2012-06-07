@@ -200,7 +200,7 @@
     }
 
     if( a.shuffle === _undefined ) {
-        a.fn.intersect = function() {
+        a.fn.shuffle = function() {
             var items = this, shuffled = [], rand;
             items.each(function(item, i) {
                 rand = Math.floor(Math.random() * (i + 1));

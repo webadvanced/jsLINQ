@@ -389,7 +389,19 @@ describe( 'With jsLINQ', function() {
     });
 
     describe( 'when using intersect()', function() {
-        
+        it( 'should throw when no arguments ar passed', function(){
+            expect(function() {nums.intersect()}).toThrow();
+        });
+
+        it( 'should only return unique array of like numbers from nums and numsNotSequential', function() {
+            var tmpArr = nums.intersect(numsNotSequential);
+            expect(tmpArr.count()).toBe(10);
+        });
+
+        it( 'should only return unique array of like numbers from nums and numsDups', function() {
+            var tmpArr = nums.intersect(numsDups);
+            expect(tmpArr.count()).toBe(3);
+        });
     });
 });
 

@@ -153,8 +153,8 @@
         };
     }
 
-    if( a.unique === _undefined ) {
-        a.fn.unique = function() {
+    if( a.unique === _undefined || a.distinct === _undefined ) {
+        a.fn.unique = a.distinct = function() {
             var items = this, arr = [], l = items.length, i = 0;
             for( i; i < l; i++ ) {
               for( var j = i + 1; j < l; j++ ) {

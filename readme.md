@@ -17,7 +17,7 @@
 - each (arg: func(item, index) transform)
 - min (arg: string prop or none)
 - max (arg: string prop or none)
-- unique (arg: none)
+- distinct or unique (arg: none)
 - union (arg: [n])
 - intersect (arg: [n])
 - shuffle (arg: none)

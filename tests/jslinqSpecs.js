@@ -403,5 +403,17 @@ describe( 'With jsLINQ', function() {
             expect(tmpArr.count()).toBe(3);
         });
     });
+
+    describe( 'when using shuffle()', function() {
+        it( 'should put nums in random order by value', function() {
+            var tmpArr = nums.shuffle();
+            expect(tmpArr[0]).not.toBe(nums.shuffle()[0]);
+        });
+
+        it( 'should put strsNotSequential in random order by value', function() {
+            var tmpArr = strsNotSequential.shuffle();
+            expect(tmpArr[0] === strsNotSequential[0] && tmpArr[3] === strsNotSequential[3]).toBe(false);
+        });
+    });
 });
 

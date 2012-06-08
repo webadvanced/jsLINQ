@@ -10,7 +10,7 @@
         a.fn.each = function( func ) {
             var items = this, l = items.length, i = 0;
             for( i; i < l; i++ ) {
-                func(items[i], i);
+                func( items[i], i );
             }
         };
     }
@@ -19,8 +19,8 @@
         a.fn.where = a.fn.all = function( predicate ) {
             var items = this, arr = [];
             if( predicate === _undefined ) return items;
-            items.each(function(item) {
-                if(predicate(item) === true) arr.push( item );
+            items.each(function( item ) {
+                if( predicate( item ) === true ) arr.push( item );
             });
             return arr;
         };
@@ -29,7 +29,7 @@
         a.fn.select = function( func ) {
             var items = this, arr = [];
             if( func === _undefined ) return items;
-            items.each(function(item) {
+            items.each( function( item ) {
                 arr.push( func( item ) );
             });
             return arr;
@@ -40,7 +40,7 @@
         a.fn.take = function( count ) {
             var items = this, l = items.length;
             if( count === _undefined ) return items;
-            if( getType(count) !== '[Number]' ) throw 'count must be a number';
+            if( getType( count ) !== '[Number]' ) throw 'count must be a number';
             return ( count > l ) ? items : items.slice( 0, count );
         };
     }
@@ -49,7 +49,7 @@
         a.fn.skip = function( count ) {
             var items = this, l = items.length;
             if( count === _undefined ) return items;
-            if( getType(count) !== '[Number]' ) throw 'count must be a number';
+            if( getType( count ) !== '[Number]' ) throw 'count must be a number';
             return ( count > l ) ? items.slice( count - l ) : items.slice( count );
         };
     }
@@ -60,7 +60,7 @@
             if( !predicate ) {
                 return items[0];
             }
-            return items.where(predicate)[0];
+            return items.where( predicate )[0];
         };
     }
 
@@ -70,7 +70,7 @@
             if( predicate  === _undefined ) { 
                 return this.length;
             }
-            return items.where(predicate).length;
+            return items.where( predicate ).length;
         };
     }
 
@@ -80,16 +80,16 @@
             if( predicate === _undefined ) {
                 return this.length > 0;
             }
-            return ( items.length <= 0 ) ? false : items.where(predicate).length > 0;
+            return ( items.length <= 0 ) ? false : items.where( predicate ).length > 0;
         };
     }
 
     if( a.toHash === _undefined || a.toDictionary === _undefined ) {
         a.fn.toHash = a.fn.toDictionary = function( key ) {
             var items = this, obj = {};
-            if(key && items[0][key] === _undefined) throw 'key is only valid for arrays of Object';
+            if( key && items[0][key] === _undefined ) throw 'key is only valid for arrays of Object';
             items.each(function(item, i) {
-                if(!key) {
+                if( !key ) {
                     obj[i] = items[i];
                 } else {
                     obj[items[i][key]] = items[i];
@@ -107,7 +107,7 @@
             if( prop === _undefined ) {
                 return ( type === '[String]' ) ? items.sort( sortString ) : items.sort( sortNumber );
             }
-            return ( type === '[String]' ) ? items.sort(sortProxy(sortString, prop)) : items.sort(sortProxy(sortNumber, prop));
+            return ( type === '[String]' ) ? items.sort( sortProxy(sortString, prop) ) : items.sort( sortProxy( sortNumber, prop ) );
         };
     }
 
@@ -129,7 +129,7 @@
             var items = this, l = items.length, type;
             type = ( prop === _undefined ) ? getType( items[0] ) : getType( items[0][prop] );
             if( type !== '[Number]' ) throw 'array values must be a Number';
-            return items.sum(prop) / l;
+            return items.sum( prop ) / l;
         };
     }
 
@@ -138,8 +138,8 @@
             var items = this, type, arr;
             type = ( prop === _undefined ) ? getType( items[0] ) : getType( items[0][prop] );
             if( type !== '[Number]' ) throw 'array values must be a Number';
-            arr = ( prop === _undefined ) ? items : items.select(function(x) {return x[prop];});
-            return Math.max.apply(Math, arr);
+            arr = ( prop === _undefined ) ? items : items.select(function( x ) { return x[prop]; } );
+            return Math.max.apply( Math, arr );
         };
     }
 
@@ -148,8 +148,8 @@
             var items = this, type, arr;
             type = ( prop === _undefined ) ? getType( items[0] ) : getType( items[0][prop] );
             if( type !== '[Number]' ) throw 'array values must be a Number';
-            arr = ( prop === _undefined ) ? items : items.select(function(x) {return x[prop];});
-            return Math.min.apply(Math, arr);
+            arr = ( prop === _undefined ) ? items : items.select( function(x) { return x[prop]; } );
+            return Math.min.apply( Math, arr );
         };
     }
 

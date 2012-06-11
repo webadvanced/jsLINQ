@@ -47,3 +47,36 @@ var namesOver21OrderedByAge = people.where(function(x) {return x.age > 21})
                                     .orderBy('age')
                                     .select(function(x) {return x.name});
 //namesOver21OrderedByAge: ['Sarah', 'Reza', 'Paul', 'Adam']
+```javascript
+
+#Some simple helper delegates#
+
+```javascript
+var _ = {
+    eq: function(obj, prop) {
+            return function(item) {
+                return ((prop) ? item[prop] : item) === obj;      
+            };                                                  
+    },
+    lt: function(obj, prop) {
+        return function(item) {
+                return ((prop) ? item[prop] : item) < obj;    
+        };
+    },
+    gt: function(obj, prop) {
+        return function(item) {
+                return ((prop) ? item[prop] : item) > obj;     
+        };
+    },
+    even: function(prop) {
+        return function(item) {
+                return ((prop) ? item[prop] : item) % 2 === 0;     
+        };
+    },
+    odd: function(prop) {
+        return function(item) {
+                return ((prop) ? item[prop] : item) % 2 !== 0;     
+        };
+    }
+};
+```javascript

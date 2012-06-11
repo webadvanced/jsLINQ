@@ -17,11 +17,30 @@
 
     if( a.where === _undefined ) {
         a.fn.where = a.fn.all = function( predicate ) {
-            var items = this, arr = [];
+            var items = this, arr = [], type;
             if( predicate === _undefined ) return items;
-            items.each(function(item) {
-                if(predicate(item) === true) arr.push( item );
-            });
+            type = getType( predicate );
+            if(type == '[String]') {
+                var lambda = predicate.replace(/. => ./, ''), prop, val;
+                if(lambda.charAt(0) === '.') {
+                    prop = lambda.match(/(\w+)/)[0];
+                    lambda = lambda.replace('.' + prop, '');
+                }
+                items.each(function( item ) {
+                    if( prop ) {
+                        val = item[prop];
+                        val = getType(val) === '[String]' ? '"' + val + '"' : val;
+                        if(eval(val + lambda) === true) arr.push( item );
+                    } else {
+                        if(eval(item + lambda) === true) arr.push( item );
+                    }
+                });    
+            } else {
+                items.each(function(item) {
+                    if( predicate( item ) === true ) arr.push( item );
+                });    
+            }
+            
             return arr;
         };
     }

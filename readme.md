@@ -37,6 +37,10 @@ var people = [
 var numsOverFiveOrdered = nums.where(function(n) {return n > 5}).order(); 
 //numsOverFiveOrdered: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
 
+numsOverFiveOrdered = nums.where('n => n > 5').order(); 
+//numsOverFiveOrdered: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
+
+
 var numsSkipTenTakeTenOrder = nums.skip(10).take(10).order();
 //numsSkipTenTakeTenOrder: [3,6,11,12,13,14,16,17,18,20]
 

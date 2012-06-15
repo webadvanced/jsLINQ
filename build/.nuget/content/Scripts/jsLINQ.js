@@ -3,7 +3,8 @@
         sortNumber, 
         sortString, 
         sortProxy, 
-        _undefined;
+        _undefined,
+        stringTolambdaFn;
     a.fn = a.prototype;
 
     if( a.each === _undefined ) {
@@ -21,22 +22,27 @@
             if( predicate === _undefined ) return items;
             type = getType( predicate );
             if(type == '[String]') {
-                var lambda = predicate.replace(/. => ./, ''), prop, val;
-                if(lambda.charAt(0) === '.') {
-                    prop = lambda.match(/(\w+)/)[0];
-                    lambda = lambda.replace('.' + prop, '');
-                }
+                // var lambda = predicate.replace(/. => ./, ''), prop, val;
+                // if(lambda.charAt(0) === '.') {
+                //     prop = lambda.match(/(\w+)/)[0];
+                //     lambda = lambda.replace('.' + prop, '');
+                // }
+                // items.each( function( item ) {
+                //     if( prop ) {
+                //         val = item[prop];
+                //         val = getType( val ) === '[String]' ? '"' + val + '"' : val;
+                //         if( eval( val + lambda ) === true ) arr.push( item );
+                //     } else {
+                //         val = getType( item ) === '[String]' ? '"' + item + '"' : item;
+                //         if( eval( val + lambda ) === true ) arr.push( item );
+                //     }
+                // });  
+                var fn = stringTolambdaFn( predicate );
                 items.each(function( item ) {
-                    if( prop ) {
-                        val = item[prop];
-                        val = getType(val) === '[String]' ? '"' + val + '"' : val;
-                        if(eval(val + lambda) === true) arr.push( item );
-                    } else {
-                        if(eval(item + lambda) === true) arr.push( item );
-                    }
+                    if( fn( item ) === true ) arr.push( item );
                 });    
             } else {
-                items.each(function(item) {
+                items.each(function( item ) {
                     if( predicate( item ) === true ) arr.push( item );
                 });    
             }
@@ -48,7 +54,7 @@
         a.fn.select = function( func ) {
             var items = this, arr = [];
             if( func === _undefined ) return items;
-            items.each(function(item) {
+            items.each( function( item ) {
                 arr.push( func( item ) );
             });
             return arr;
@@ -249,5 +255,28 @@
         _a = ( prop === _undefined ? a : a[prop] );
         _b = ( prop === _undefined ? b : b[prop] );
         return _a.localeCompare(_b);
+    };
+    stringTolambdaFn = function ( l ) {
+        var fn = l.match(/\((.*)\)\s*=>\s*(.*)/), p = [], b = '';
+        console.log(l);
+        console.log(fn);
+
+        if ( fn.length > 0 ) fn.shift() ;
+        if ( fn.length > 0 ) b = fn.pop() ;
+        if ( fn.length > 0 ) p = fn.pop().replace(/^\s*|\s(?=\s)|\s*$|,/g, '').split(' ');
+     
+        console.log(b);
+        console.log(p);
+
+        fn = ( ( ! /\s*return\s+/.test( b ) ) ? 'return ' : '' ) + b ;   
+        console.log(fn);
+        p.push( fn ) ;
+     
+        try {
+           return Function.apply( {}, p ) ;
+        }
+        catch( e ) {
+            return null ;
+        }
     };
 })(Array, Object);

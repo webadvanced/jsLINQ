@@ -116,19 +116,19 @@ describe( 'With jsLINQ', function() {
         });
 
         it( 'should parse lamba without prop', function() {
-            var tmpArr = nums.where('n => n > 5');
+            var tmpArr = nums.where('( n ) => n > 5');
             expect(tmpArr.count()).toBe(5);
             expect(tmpArr[0]).toBe(6);
         });
 
         it( 'should parse lamba with prop when value is a number', function() {
-            var tmpArr = people.where('n => n.age > 21');
+            var tmpArr = people.where('( n ) => n.age > 21');
             expect(tmpArr.count()).toBe(7);
             expect(tmpArr[0].full()).toBe('Jon Doe');
         });
 
         it( 'should parse lamba with prop when value is a string', function() {
-            var tmpArr = people.where('n => n.first == "Jon"');
+            var tmpArr = people.where('( n ) => n.first == "Jon"');
             expect(tmpArr.count()).toBe(2);
             expect(tmpArr[0].full()).toBe('Jon Doe');
         });

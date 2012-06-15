@@ -22,21 +22,6 @@
             if( predicate === _undefined ) return items;
             type = getType( predicate );
             if(type == '[String]') {
-                // var lambda = predicate.replace(/. => ./, ''), prop, val;
-                // if(lambda.charAt(0) === '.') {
-                //     prop = lambda.match(/(\w+)/)[0];
-                //     lambda = lambda.replace('.' + prop, '');
-                // }
-                // items.each( function( item ) {
-                //     if( prop ) {
-                //         val = item[prop];
-                //         val = getType( val ) === '[String]' ? '"' + val + '"' : val;
-                //         if( eval( val + lambda ) === true ) arr.push( item );
-                //     } else {
-                //         val = getType( item ) === '[String]' ? '"' + item + '"' : item;
-                //         if( eval( val + lambda ) === true ) arr.push( item );
-                //     }
-                // });  
                 var fn = stringTolambdaFn( predicate );
                 items.each(function( item ) {
                     if( fn( item ) === true ) arr.push( item );
@@ -258,15 +243,10 @@
     };
     stringTolambdaFn = function ( l ) {
         var fn = l.match(/\((.*)\)\s*=>\s*(.*)/), p = [], b = '';
-        console.log(l);
-        console.log(fn);
 
         if ( fn.length > 0 ) fn.shift() ;
         if ( fn.length > 0 ) b = fn.pop() ;
         if ( fn.length > 0 ) p = fn.pop().replace(/^\s*|\s(?=\s)|\s*$|,/g, '').split(' ');
-     
-        console.log(b);
-        console.log(p);
 
         fn = ( ( ! /\s*return\s+/.test( b ) ) ? 'return ' : '' ) + b ;   
         console.log(fn);

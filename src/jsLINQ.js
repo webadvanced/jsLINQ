@@ -243,15 +243,10 @@
     };
     stringTolambdaFn = function ( l ) {
         var fn = l.match(/\((.*)\)\s*=>\s*(.*)/), p = [], b = '';
-        console.log(l);
-        console.log(fn);
 
         if ( fn.length > 0 ) fn.shift() ;
         if ( fn.length > 0 ) b = fn.pop() ;
         if ( fn.length > 0 ) p = fn.pop().replace(/^\s*|\s(?=\s)|\s*$|,/g, '').split(' ');
-     
-        console.log(b);
-        console.log(p);
 
         fn = ( ( ! /\s*return\s+/.test( b ) ) ? 'return ' : '' ) + b ;   
         console.log(fn);

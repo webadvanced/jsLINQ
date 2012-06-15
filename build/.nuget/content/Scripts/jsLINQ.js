@@ -4,7 +4,7 @@
         sortString, 
         sortProxy, 
         _undefined,
-        stringTolambdaFn;
+        stringToLambdaFn;
     a.fn = a.prototype;
 
     if( a.each === _undefined ) {
@@ -22,7 +22,7 @@
             if( predicate === _undefined ) return items;
             type = getType( predicate );
             if(type == '[String]') {
-                var fn = stringTolambdaFn( predicate );
+                var fn = stringToLambdaFn( predicate );
                 items.each(function( item ) {
                     if( fn( item ) === true ) arr.push( item );
                 });    
@@ -243,7 +243,7 @@
         return _a.localeCompare(_b);
     };
 
-    stringTolambdaFn = function ( l ) {
+    stringToLambdaFn = function ( l ) {
         var fn = l.match(/[\(]?(\w)[\)]?\s*=>\s*(.*)/), p = [], b = '';
         if ( fn && fn.length > 0 ) fn.shift();
         if ( fn && fn.length > 0 ) b = fn.pop();

@@ -3,10 +3,10 @@
 
 **API**
 
-- any (arg: func predicate or none)
-- count (arg: func predicate or none)
-- first or single (arg: func predicate or none)
-- where or all (arg: func predicate)
+- any (arg: func predicate or string lambda or none)
+- count (arg: func predicate or string lambda or none)
+- first or single (arg: func predicate or string lambda or none)
+- where or all (arg: func predicate or string lambda)
 - select (arg: func transform)
 - skip (arg: int count)
 - take (arg: int count)

@@ -35,6 +35,7 @@
             return arr;
         };
     }
+
     if( a.select === _undefined ) {
         a.fn.select = function( func ) {
             var items = this, arr = [];
@@ -241,16 +242,14 @@
         _b = ( prop === _undefined ? b : b[prop] );
         return _a.localeCompare(_b);
     };
+
     stringTolambdaFn = function ( l ) {
-        var fn = l.match(/\((.*)\)\s*=>\s*(.*)/), p = [], b = '';
-
-        if ( fn.length > 0 ) fn.shift() ;
-        if ( fn.length > 0 ) b = fn.pop() ;
-        if ( fn.length > 0 ) p = fn.pop().replace(/^\s*|\s(?=\s)|\s*$|,/g, '').split(' ');
-
+        var fn = l.match(/[\(]?(\w)[\)]?\s*=>\s*(.*)/), p = [], b = '';
+        if ( fn && fn.length > 0 ) fn.shift();
+        if ( fn && fn.length > 0 ) b = fn.pop();
+        if ( fn && fn.length > 0 ) p = fn.pop().replace(/^\s*|\s(?=\s)|\s*$|,/g, '').split(' ');
         fn = ( ( ! /\s*return\s+/.test( b ) ) ? 'return ' : '' ) + b ;   
         p.push( fn ) ;
-     
         try {
            return Function.apply( {}, p ) ;
         }
@@ -258,4 +257,5 @@
             return null ;
         }
     };
+
 })(Array, Object);

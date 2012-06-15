@@ -22,21 +22,6 @@
             if( predicate === _undefined ) return items;
             type = getType( predicate );
             if(type == '[String]') {
-                // var lambda = predicate.replace(/. => ./, ''), prop, val;
-                // if(lambda.charAt(0) === '.') {
-                //     prop = lambda.match(/(\w+)/)[0];
-                //     lambda = lambda.replace('.' + prop, '');
-                // }
-                // items.each( function( item ) {
-                //     if( prop ) {
-                //         val = item[prop];
-                //         val = getType( val ) === '[String]' ? '"' + val + '"' : val;
-                //         if( eval( val + lambda ) === true ) arr.push( item );
-                //     } else {
-                //         val = getType( item ) === '[String]' ? '"' + item + '"' : item;
-                //         if( eval( val + lambda ) === true ) arr.push( item );
-                //     }
-                // });  
                 var fn = stringTolambdaFn( predicate );
                 items.each(function( item ) {
                     if( fn( item ) === true ) arr.push( item );

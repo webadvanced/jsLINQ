@@ -26,17 +26,18 @@
                     prop = lambda.match(/(\w+)/)[0];
                     lambda = lambda.replace('.' + prop, '');
                 }
-                items.each(function( item ) {
+                items.each( function( item ) {
                     if( prop ) {
                         val = item[prop];
-                        val = getType(val) === '[String]' ? '"' + val + '"' : val;
-                        if(eval(val + lambda) === true) arr.push( item );
+                        val = getType( val ) === '[String]' ? '"' + val + '"' : val;
+                        if( eval( val + lambda ) === true ) arr.push( item );
                     } else {
-                        if(eval(item + lambda) === true) arr.push( item );
+                        val = getType( val ) === '[String]' ? '"' + item + '"' : item;
+                        if( eval( val + lambda ) === true ) arr.push( item );
                     }
                 });    
             } else {
-                items.each(function(item) {
+                items.each(function( item ) {
                     if( predicate( item ) === true ) arr.push( item );
                 });    
             }
@@ -48,7 +49,7 @@
         a.fn.select = function( func ) {
             var items = this, arr = [];
             if( func === _undefined ) return items;
-            items.each(function(item) {
+            items.each( function( item ) {
                 arr.push( func( item ) );
             });
             return arr;

@@ -47,6 +47,9 @@ var numsSkipTenTakeTenOrder = nums.skip(10).take(10).order();
 var peopleOver21OrderedByName = people.where(function(x) {return x.age > 21}).orderBy('name');
 //peopleOver21OrderedByName: [{name: 'Adam', age: 34},{name: 'Paul', age: 31},{name: 'Reza', age: 26},{name: 'Sarah', age: 22}];
 
+peopleOver21OrderedByName = people.where('x => x.age > 21').orderBy('name');
+//peopleOver21OrderedByName: [{name: 'Adam', age: 34},{name: 'Paul', age: 31},{name: 'Reza', age: 26},{name: 'Sarah', age: 22}];
+
 var namesOver21OrderedByAge = people.where(function(x) {return x.age > 21})
                                     .orderBy('age')
                                     .select(function(x) {return x.name});

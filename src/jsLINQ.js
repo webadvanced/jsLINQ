@@ -249,7 +249,6 @@
         if ( fn.length > 0 ) p = fn.pop().replace(/^\s*|\s(?=\s)|\s*$|,/g, '').split(' ');
 
         fn = ( ( ! /\s*return\s+/.test( b ) ) ? 'return ' : '' ) + b ;   
-        console.log(fn);
         p.push( fn ) ;
      
         try {

@@ -57,36 +57,3 @@ var namesOver21OrderedByAge = people.where(function(x) {return x.age > 21})
 <<<<<<< HEAD
 =======
 ```
-
-#Some simple helper delegates#
-
-```javascript
-var _ = {
-    eq: function(obj, prop) {
-            return function(item) {
-                return ((prop) ? item[prop] : item) === obj;      
-            };                                                  
-    },
-    lt: function(obj, prop) {
-        return function(item) {
-                return ((prop) ? item[prop] : item) < obj;    
-        };
-    },
-    gt: function(obj, prop) {
-        return function(item) {
-                return ((prop) ? item[prop] : item) > obj;     
-        };
-    },
-    even: function(prop) {
-        return function(item) {
-                return ((prop) ? item[prop] : item) % 2 === 0;     
-        };
-    },
-    odd: function(prop) {
-        return function(item) {
-                return ((prop) ? item[prop] : item) % 2 !== 0;     
-        };
-    }
-};
-```
->>>>>>> 70b39b48ab7ed27b4c1afe57e3446935c0b3d045

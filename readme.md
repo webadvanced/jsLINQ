@@ -56,8 +56,6 @@ var namesOver21OrderedByAge = people.where(function(x) {return x.age > 21})
                                     .orderBy('age')
                                     .select(function(x) {return x.name});
 //namesOver21OrderedByAge: ['Sarah', 'Reza', 'Paul', 'Adam']
-<<<<<<< HEAD
-=======
 ```
 
 #Some simple helper delegates#
@@ -91,4 +89,3 @@ var _ = {
     }
 };
 ```
->>>>>>> 70b39b48ab7ed27b4c1afe57e3446935c0b3d045

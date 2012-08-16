@@ -34,10 +34,12 @@ var people = [
     {name: 'Sarah', age: 22}
 ];
 
+var reza = people.single('x => x.name == "reza"');
+
 var numsOverFiveOrdered = nums.where(function(n) {return n > 5}).order(); 
 //numsOverFiveOrdered: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
 
-numsOverFiveOrdered = nums.where('(n) => n > 5').order(); 
+numsOverFiveOrdered = nums.where('n => n > 5').order(); 
 //numsOverFiveOrdered: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
 
 
@@ -55,3 +57,38 @@ var namesOver21OrderedByAge = people.where(function(x) {return x.age > 21})
                                     .select(function(x) {return x.name});
 //namesOver21OrderedByAge: ['Sarah', 'Reza', 'Paul', 'Adam']
 ```
+<<<<<<< HEAD
+=======
+
+#Some simple helper delegates#
+
+```javascript
+var _ = {
+    eq: function(obj, prop) {
+            return function(item) {
+                return ((prop) ? item[prop] : item) === obj;      
+            };                                                  
+    },
+    lt: function(obj, prop) {
+        return function(item) {
+                return ((prop) ? item[prop] : item) < obj;    
+        };
+    },
+    gt: function(obj, prop) {
+        return function(item) {
+                return ((prop) ? item[prop] : item) > obj;     
+        };
+    },
+    even: function(prop) {
+        return function(item) {
+                return ((prop) ? item[prop] : item) % 2 === 0;     
+        };
+    },
+    odd: function(prop) {
+        return function(item) {
+                return ((prop) ? item[prop] : item) % 2 !== 0;     
+        };
+    }
+};
+```
+>>>>>>> lab

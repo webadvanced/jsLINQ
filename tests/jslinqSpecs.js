@@ -16,7 +16,13 @@ describe( 'With jsLINQ', function() {
             new helpers.Person( 'Ray', 'Weeks', 22, '08/16/1989' ),
             new helpers.Person( 'Jesus', 'Sims', 18, '02/03/1993' ),
             new helpers.Person( 'Sandy', 'Serrano', 27, '12/06/1984' )
-        ];
+        ], ViewModel = function( people, index ) {
+            this.root = 'fakeRootId';
+            this.index = index || 27;
+            this.prople = people;
+        };
+
+
 
     describe( 'When using any()', function() {
         describe( 'without a predicate', function() {
@@ -131,6 +137,12 @@ describe( 'With jsLINQ', function() {
             var tmpArr = people.where('(n) => n.first == "Jon"');
             expect(tmpArr.count()).toBe(2);
             expect(tmpArr[0].full()).toBe('Jon Doe');
+        });
+
+        it( 'should use the given ctx to execute callbacks', function() {
+            var model = new ViewModel( people ),
+                tmpArr = people.where('p => p.age == this.index', model);
+            expect(tmpArr.count()).toBe(2);
         });
 
         it( 'should parse lamba with prop and two conditions with and without parens', function() {

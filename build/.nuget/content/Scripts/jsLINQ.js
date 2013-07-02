@@ -1,4 +1,4 @@
-(function( a, o ) {
+(function( a, o, w ) {
     var getType, 
         sortNumber, 
         sortString, 
@@ -8,27 +8,29 @@
     a.fn = a.prototype;
 
     if( a.each === _undefined ) {
-        a.fn.each = function( func ) {
+        a.fn.each = function( func, ctx ) {
+            ctx = ctx || w;
             var items = this, l = items.length, i = 0;
             for( i; i < l; i++ ) {
-                func(items[i], i);
+                func.call(ctx, items[i], i);
             }
         };
     }
 
     if( a.where === _undefined ) {
-        a.fn.where = a.fn.all = function( predicate ) {
+        a.fn.where = a.fn.all = function( predicate, ctx ) {
             var items = this, arr = [], type;
+            ctx = ctx || w;
             if( predicate === _undefined ) return items;
             type = getType( predicate );
             if(type == '[String]') {
                 var fn = stringToLambdaFn( predicate );
                 items.each(function( item ) {
-                    if( fn( item ) === true ) arr.push( item );
+                    if( fn.call( ctx, item ) === true ) arr.push( item );
                 });    
             } else {
                 items.each(function( item ) {
-                    if( predicate( item ) === true ) arr.push( item );
+                    if( predicate.call( ctx, item ) === true ) arr.push( item );
                 });    
             }
             
@@ -37,11 +39,12 @@
     }
 
     if( a.select === _undefined ) {
-        a.fn.select = function( func ) {
+        a.fn.select = function( func, ctx ) {
             var items = this, arr = [];
+            ctx = ctx || w;
             if( func === _undefined ) return items;
             items.each( function( item ) {
-                arr.push( func( item ) );
+                arr.push( func.call( ctx, item ) );
             });
             return arr;
         };
@@ -66,32 +69,32 @@
     }
     
     if( a.first === _undefined || a.single === _undefined ) {
-        a.fn.first = a.fn.single = function( predicate ) {
+        a.fn.first = a.fn.single = function( predicate, ctx ) {
             var items = this;
             if( !predicate ) {
                 return items[0];
             }
-            return items.where(predicate)[0];
+            return items.where( predicate, ctx )[0];
         };
     }
 
     if( a.count === _undefined ) {
-        a.fn.count = function( predicate ) {
+        a.fn.count = function( predicate, ctx ) {
             var items = this;
             if( predicate  === _undefined ) { 
                 return this.length;
             }
-            return items.where(predicate).length;
+            return items.where( predicate, ctx ).length;
         };
     }
 
     if( a.any === _undefined ) {
-        a.fn.any = function( predicate ) {
+        a.fn.any = function( predicate, ctx ) {
             var items = this;
             if( predicate === _undefined ) {
                 return this.length > 0;
             }
-            return ( items.length <= 0 ) ? false : items.where(predicate).length > 0;
+            return ( items.length <= 0 ) ? false : items.where( predicate, ctx ).length > 0;
         };
     }
 
@@ -258,4 +261,4 @@
         }
     };
 
-})(Array, Object);
+} )( Array, Object, window );

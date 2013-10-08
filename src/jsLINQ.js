@@ -1,4 +1,4 @@
-(function( a, o, w ) {
+(function( a, o, w, s ) {
     var getType, 
         sortNumber, 
         sortString, 
@@ -224,6 +224,28 @@
             return shuffled;
         };
     }
+    
+    if( !s.params ) {
+        s.prototype.params = function ( obj ) {
+            var str = this,
+            type =  o.prototype.toString.call( obj ).replace( 'object ', '' ),
+            i = 0,
+            l = arguments.length,
+            r;
+            if ( type === '[Object]' && l === 1 ) {
+                for ( var prop in obj ) {
+                    r = new RegExp( '\\{' + prop + '\\}', 'g' );
+                    str = str.replace( r, obj[prop] );
+                }
+            } else {
+                for ( ; i < l; i++ ) {
+                    r = new RegExp( '\\{' + i + '\\}', 'gi' );
+                    str = str.replace( r, arguments[i] );
+                }
+            }
+            return str;
+        };
+    }
 
     sortProxy = function( func, prop ) {
         return (function(a, b) {
@@ -261,4 +283,4 @@
         }
     };
 
-} )( Array, Object, window );
+} )( this.Array, this.Object, this, this.String );

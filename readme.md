@@ -1,5 +1,4 @@
-#Coming Soon, but here are some examples#
-
+#Own JavaScript Arrays#
 
 **API**
 
@@ -34,13 +33,13 @@ var people = [
     {name: 'Sarah', age: 22}
 ];
 
-//Using lanbda with an object
+//Using lambda with an object
 var reza = people.single( 'x => x.name == "reza"' );
 
-//Using params with indexes
+//Using lambda and params with indexes
 var reza = people.single( 'x => x.name == {0}'.params( 'reza' ) );
 
-//Using params with objects
+//Using lambda and params with objects
 var reza = people.single( 'x => x.name == {name}'.params( { name: 'reza '} ) );
 
 var numsOverFiveOrdered = nums.where(function(n) {return n > 5}).order(); 

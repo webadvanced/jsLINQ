@@ -37,10 +37,10 @@ var people = [
 var reza = people.single( 'x => x.name == "reza"' );
 
 //Using lambda and params with indexes
-var reza = people.single( 'x => x.name == {0}'.params( 'reza' ) );
+var reza = people.single( 'x => x.name == "{0}"'.params( 'reza' ) );
 
 //Using lambda and params with objects
-var reza = people.single( 'x => x.name == {name}'.params( { name: 'reza '} ) );
+var reza = people.single( 'x => x.name == "{name}"'.params( { name: 'reza '} ) );
 
 var numsOverFiveOrdered = nums.where(function(n) {return n > 5}).order(); 
 //numsOverFiveOrdered: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
